@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mappers.user.UserSQLMapper">
+    <!-- 회원가입 -->
+    <insert id="insertUser">
+        insert into eden_user(user_id, user_pw, user_nickname, user_image, user_gender, user_birth, user_phone,
+                              user_email, user_status, user_join_date, user_last_connection_date)
+        values (
+                #{user_id},
+                #{user_pw},
+                #{user_nickname},
+                'default-user-image.jpg',
+                #{user_gender},
+                #{user_birth},
+                #{user_phone},
+                #{user_email},
+                'active',
+                now(),
+                now())
+    </insert>
+
+    <!-- mapper -->
+    <select id="isPhoneDuplicate" resultType="String">
+        SELECT user_phone FROM eden_user WHERE user_phone = #{phone}
+    </select>
+</mapper>
